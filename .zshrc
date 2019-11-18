@@ -119,7 +119,7 @@ alias valgring-mem="valgrind --tool=memcheck"
 alias gccw="gcc -Wall -Wextra -Werror"
 alias weather="curl wttr.in"
 
-source .functions.sh
+source /Users/$USER/.zshrc.functions
 
 # Load Homebrew config script
 source $HOME/.brewconfig.zsh

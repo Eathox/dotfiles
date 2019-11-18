@@ -1,4 +1,4 @@
-#!/usr/bash
+#User defined functions
 
 clean() {
 	local TARGET_SUFFIX="*.[od]"
