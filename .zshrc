@@ -126,4 +126,4 @@ source $HOME/.brewconfig.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
-printf "\e[38;5;14mTemp: " && curl -m 2 "wttr.in/?format=1" && printf "\e[39m"
+printf "\e[38;5;14mTemp: " && curl -m 1 "wttr.in/?format=1" && printf "\e[39m"
