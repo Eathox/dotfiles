@@ -112,12 +112,14 @@ else
 fi
 
 alias reload="source ~/.zshrc"
+alias weather="curl wttr.in"
 alias norminette+="python ~/norminette+/run.py"
 alias norm="norminette | grep --color=never -E '(Error|Warning: [^N])' -B 1"
 alias norm+='norminette+ | grep --color=never -E "(Error|Warning: [^N])" -B 1'
 alias valgring-mem="valgrind --tool=memcheck"
+
 alias gccw="gcc -Wall -Wextra -Werror"
-alias weather="curl wttr.in"
+alias rm="rm -i"
 
 source $HOME/.zshrc.functions
 
