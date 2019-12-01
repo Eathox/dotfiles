@@ -1,6 +1,6 @@
 #User defined functions
 
-clean() {
+clean () {
 	local TARGET_SUFFIX="*.[od]"
 	local TARGET_DIR="."
 
@@ -10,7 +10,7 @@ clean() {
 	find $TARGET_DIR -name $TARGET_SUFFIX -delete
 }
 
-git-rename-branch() {
+git-rename-branch () {
 	local BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
 	if [[ -z $1 ]]; then

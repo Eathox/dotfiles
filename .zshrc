@@ -105,7 +105,7 @@ fi
 
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 export EDITOR="code -w"
-if [[ $USER -eq pholster ]]; then
+if [[ $USER == pholster ]]; then
 	export MAIL="pholster@student.codam.nl"
 else
 	export MAIL="rendier3636@gmail.com"
@@ -124,7 +124,9 @@ alias rm="rm -i"
 source $HOME/.zshrc.functions
 
 # Load Homebrew config script
-source $HOME/.brewconfig.zsh
+if [[ $(uname) != "Linux" ]]; then
+	source $HOME/.brewconfig.zsh
+fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
