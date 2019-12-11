@@ -13,7 +13,11 @@ backup () {
 	fi
 
 	mkdir $BACKUP_LOC
-	mv ~/$TARGET $BACKUP_LOC/$TARGET
+	if [[ -e ~/$TARGET ]]; then
+		mv ~/$TARGET $BACKUP_LOC/$TARGET
+	else
+		echo ".zshrc doesnt exsist, skipping"
+	fi
 }
 
 link () {
