@@ -119,7 +119,14 @@ alias norm+='norminette+ | grep --color=never -E "(Error|Warning: [^N])" -B 1'
 alias valgring-mem="valgrind --tool=memcheck"
 
 alias gccw="gcc -Wall -Wextra -Werror"
-alias rm="rm -i"
+alias trash="rmtrash"
+alias del="rmtrash"
+alias ccp="clipcopy"
+alias cpa="clippaste"
+alias cp="cp -iv"
+alias diff="diff --color=auto"
+alias grep="grep --color=auto"
+alias mv="mv -iv"
 
 source $HOME/.zshrc.functions
 
