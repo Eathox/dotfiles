@@ -16,7 +16,7 @@ backup () {
 	if [[ -e "$HOME/$TARGET" ]]; then
 		mv "$HOME/$TARGET" "$BACKUP_LOC/$TARGET"
 	else
-		echo ".zshrc doesnt exsist, skipping"
+		echo ".zshrc doesn't exist, skipping"
 	fi
 }
 
