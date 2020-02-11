@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -9,8 +11,8 @@ export ZSH="$HOME/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 # ZSH_THEME="robbyrussell"
-ZSH_THEME="powerlevel10k/powerlevel10k"
-POWERLEVEL9K_MODE="awesome-patched"
+export ZSH_THEME="powerlevel10k/powerlevel10k"
+export POWERLEVEL9K_MODE="awesome-patched"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -64,11 +66,12 @@ POWERLEVEL9K_MODE="awesome-patched"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(
+export plugins=(
   git
 )
 
-source $ZSH/oh-my-zsh.sh
+# shellcheck source=/dev/null
+. "$ZSH/oh-my-zsh.sh"
 
 # User configuration
 
@@ -100,18 +103,15 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 if [ -f /etc/zsh.cnf ]; then
-. /etc/zsh.cnf
+	# shellcheck source=/dev/null
+	. /etc/zsh.cnf
 fi
 
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 export EDITOR="code -w"
-if [[ $USER == pholster ]]; then
-	export MAIL="pholster@student.codam.nl"
-else
-	export MAIL="rendier3636@gmail.com"
-fi
+export MAIL="pholster@student.codam.nl"
 
-alias reload="source ~/.zshrc"
+alias reload=". ~/.zshrc"
 alias weather="curl wttr.in"
 alias norminette+="python ~/norminette+/run.py"
 alias norm="norminette | grep --color=never -E '(Error|Warning: [^N])' -B 1"
@@ -128,13 +128,17 @@ alias diff="diff --color=auto"
 alias grep="grep --color=auto"
 alias mv="mv -iv"
 
-source $HOME/.zshrc.functions
+# shellcheck source=.zshrc.functions
+. "$HOME/.zshrc.functions"
 
 # Load Homebrew config script
 if [[ $(uname) != "Linux" ]]; then
-	source $HOME/.brewconfig.zsh
+	# shellcheck source=/dev/null
+	. "$HOME/.brewconfig.zsh"
 fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
-$HOME/TermStart/TermStart.bash
+
+# shellcheck source=/dev/null
+[[ -f ~/.p10k.zsh ]] && . ~/.p10k.zsh
+"$HOME/TermStart/TermStart.bash"
