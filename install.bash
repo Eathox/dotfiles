@@ -21,7 +21,10 @@ backup () {
 }
 
 link () {
-	local TARGETS=(".zshrc" ".zshrc.functions")
+	local TARGETS=(
+		".zshrc"
+		".zshrc.functions"
+	)
 
 	echo "Linking: " "${TARGETS[@]}"
 	for TARGET in "${TARGETS[@]}"; do
