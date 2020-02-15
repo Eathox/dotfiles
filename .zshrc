@@ -127,6 +127,7 @@ alias cp="cp -iv"
 alias diff="diff --color=auto"
 alias grep="grep --color=auto"
 alias mv="mv -iv"
+alias make="make --no-print-directory"
 
 # shellcheck source=.zshrc.functions
 . "$HOME/.zshrc.functions"
