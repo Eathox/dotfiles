@@ -2,37 +2,85 @@
 
 set -e
 
-backup () {
-	local TARGET=".zshrc"
-	local BACKUP_LOC="$HOME/$TARGET-backup"
+DOTFILES_BACKUP_LOC="$HOME/dotfiles-backup"
 
-	echo "Backing up original files to '$BACKUP_LOC'"
-	if [[ -e "$BACKUP_LOC" ]]; then
-		echo "Error: file '$BACKUP_LOC' already exists, aborting"
-		exit
-	fi
-
-	mkdir "$BACKUP_LOC"
-	if [[ -e "$HOME/$TARGET" ]]; then
-		mv "$HOME/$TARGET" "$BACKUP_LOC/$TARGET"
-	else
-		echo ".zshrc doesn't exist, skipping"
-	fi
-}
-
-link () {
-	local TARGETS=(
-		".zshrc"
-		".zshrc.functions"
-	)
-
-	echo "Linking: " "${TARGETS[@]}"
-	for TARGET in "${TARGETS[@]}"; do
-		cp -i "$TARGET" "$HOME"
-		rm "$TARGET"
-		ln "$HOME/$TARGET" "$TARGET"
+get_user_answer () {
+	PROMPT=$1
+	USER_ANSWER=""
+	while [[ $USER_ANSWER != "y" && $USER_ANSWER != "n" ]]; do
+		echo -n "$PROMPT"
+		read -r USER_ANSWER
 	done
 }
 
-backup
-link
+backup_file () {
+	local FILE="$1"
+	local FILE_DIR="$2"
+
+	local FILE_LOC
+	if [[ "$FILE_DIR" == "" ]]; then
+		FILE_LOC="$FILE"
+	else
+		FILE_LOC="$FILE_DIR/$FILE"
+	fi
+	local BACKUP_LOC="$DOTFILES_BACKUP_LOC/$FILE_LOC"
+
+	if [[ ! -f "$HOME/$FILE_LOC" ]]; then
+		echo "File '$HOME/$FILE_LOC' doesn't exist, skipping"
+	fi
+
+	echo "Backing up '$FILE' -> '$BACKUP_LOC'"
+	if [[ -e $BACKUP_LOC ]]; then
+		if [[ ! -f "$BACKUP_LOC" ]]; then
+			echo "Error: '$BACKUP_LOC' is an directory, aborting."
+			exit
+		fi
+
+		echo "File '$BACKUP_LOC' already exists"
+		get_user_answer "would you like to overwrite? (y/n): "
+
+		if [[ $USER_ANSWER != "y" ]]; then
+			return
+		fi
+	fi
+
+	mkdir -p "${BACKUP_LOC%/*}"
+	mv "$HOME/$FILE_LOC" "$BACKUP_LOC"
+}
+
+link_file () {
+	local FILE="$1"
+	local FILE_DIR="$2"
+
+	local FILE_LOC
+	if [[ "$FILE_DIR" == "" ]]; then
+		FILE_LOC="$FILE"
+	else
+		FILE_LOC="$FILE_DIR/$FILE"
+	fi
+
+	cp "$FILE" "$HOME/$FILE_LOC"
+	rm "$FILE"
+
+	echo "Linking: '$FILE' <- '$HOME/$FILE_LOC'"
+	ln "$HOME/$FILE_LOC" "$FILE"
+}
+
+install () {
+	declare -A ALL_FILE=(
+		[".zshrc"]=""
+		[".zshrc.functions"]=""
+		[".p10k.zsh"]=""
+		["color.conf"]="TermStart/config"
+	)
+
+	for FILE in "${!ALL_FILE[@]}"; do
+		FILE_DIR="${ALL_FILE[$FILE]}"
+
+		backup_file "$FILE" "$FILE_DIR"
+		link_file "$FILE" "$FILE_DIR"
+		echo ""
+	done
+}
+
+install
