@@ -40,12 +40,13 @@ backup_file () {
 		get_user_answer "would you like to overwrite? (y/n): "
 
 		if [[ $USER_ANSWER != "y" ]]; then
-			return
+			return 1
 		fi
 	fi
 
 	mkdir -p "${BACKUP_LOC%/*}"
 	mv "$HOME/$FILE_LOC" "$BACKUP_LOC"
+	return 0
 }
 
 link_file () {
@@ -77,8 +78,11 @@ install () {
 	for FILE in "${!ALL_FILE[@]}"; do
 		FILE_DIR="${ALL_FILE[$FILE]}"
 
-		backup_file "$FILE" "$FILE_DIR"
-		link_file "$FILE" "$FILE_DIR"
+		if backup_file "$FILE" "$FILE_DIR"; then
+			link_file "$FILE" "$FILE_DIR"
+		else
+			echo "Skipping backup and linking"
+		fi
 		echo ""
 	done
 }
