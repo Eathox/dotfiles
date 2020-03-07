@@ -12,7 +12,6 @@ export ZSH="$HOME/.oh-my-zsh"
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 # ZSH_THEME="robbyrussell"
 export ZSH_THEME="powerlevel10k/powerlevel10k"
-export POWERLEVEL9K_MODE="awesome-patched"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -121,8 +120,6 @@ alias valgring-mem="valgrind --tool=memcheck"
 alias gccw="gcc -Wall -Wextra -Werror"
 alias trash="rmtrash"
 alias del="rmtrash"
-alias cpc="clipcopy"
-alias cpa="clippaste"
 alias cp="cp -iv"
 alias diff="diff --color=auto"
 alias grep="grep --color=auto"
@@ -136,10 +133,15 @@ alias make="make --no-print-directory"
 if [[ $(uname) != "Linux" ]]; then
 	# shellcheck source=/dev/null
 	. "$HOME/.brewconfig.zsh"
+
+	alias cpc="xclip -selection clipboard"
+	alias cpa="xclip -selection clipboard -o"
+else
+	alias cpc="clipcopy"
+	alias cpa="clippaste"
 fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-
 # shellcheck source=/dev/null
-[[ -f ~/.p10k.zsh ]] && . ~/.p10k.zsh
+[[ ! -f ~/.p10k.zsh ]] || . ~/.p10k.zsh
 "$HOME/TermStart/TermStart.bash"
