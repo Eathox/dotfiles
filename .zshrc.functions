@@ -3,13 +3,12 @@
 # User defined functions
 
 clean () {
-	TARGET_SUFFIX="*.[od]"
 	TARGET_DIR="."
 
 	if [ -n "$1" ]; then
 		TARGET_DIR="$1"
 	fi
-	find "$TARGET_DIR" -name "$TARGET_SUFFIX" -delete
+	find "$TARGET_DIR" -name "*.[od]" -type f
 }
 
 # shellcheck disable=SC2039
