@@ -11,6 +11,14 @@ clean () {
 	find "$TARGET_DIR" -name "*.[od]" -type f
 }
 
+norm () {
+	norminette "$@" | grep --color=never -E '(Error|Warning: [^N])' -B 1
+}
+
+norm+ () {
+	norminette+ "$@" | grep --color=never -E '(Error|Warning: [^N])' -B 1
+}
+
 # shellcheck disable=SC2039
 git_rename_branch () {
 	BRANCH=$(git rev-parse --abbrev-ref HEAD)

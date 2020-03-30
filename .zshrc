@@ -113,8 +113,6 @@ export MAIL="pholster@student.codam.nl"
 alias reload=". ~/.zshrc"
 alias weather="curl wttr.in"
 alias norminette+="python ~/norminette+/run.py"
-alias norm="norminette | grep --color=never -E '(Error|Warning: [^N])' -B 1"
-alias norm+='norminette+ | grep --color=never -E "(Error|Warning: [^N])" -B 1'
 alias valgring-mem="valgrind --tool=memcheck"
 
 alias gccw="gcc -Wall -Wextra -Werror"
