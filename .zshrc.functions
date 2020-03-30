@@ -12,11 +12,13 @@ clean () {
 }
 
 norm () {
-	norminette "$@" | grep --color=never -E '(Error|Warning: [^N])' -B 1
+	FILES=$(norminette "$@" | grep -v "Warning: Not a valid file")
+	echo "$FILES" | grep -B1 --color=never -E '(Error|Warning:)'
 }
 
 norm+ () {
-	norminette+ "$@" | grep --color=never -E '(Error|Warning: [^N])' -B 1
+	FILES=$(norminette+ "$@" | grep -v "Warning: Not a valid file")
+	echo "$FILES" | grep -B1 --color=never -E '(Error|Warning:)'
 }
 
 # shellcheck disable=SC2039
