@@ -8,7 +8,7 @@ clean () {
 	if [ -n "$1" ]; then
 		TARGET_DIR="$1"
 	fi
-	find "$TARGET_DIR" -name "*.[od]" -type f
+	find "$TARGET_DIR" -name "*.[od]" -type f -delete
 }
 
 norm () {
