@@ -67,8 +67,9 @@ export ZSH_THEME="powerlevel10k/powerlevel10k"
 # Add wisely, as too many plugins slow down shell startup.
 export plugins=(
   git
+  colored-man-pages
+  zsh-autosuggestions #  https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md
 )
-
 # shellcheck source=/dev/null
 . "$ZSH/oh-my-zsh.sh"
 
@@ -106,6 +107,8 @@ if [ -f /etc/zsh.cnf ]; then
 	. /etc/zsh.cnf
 fi
 
+unsetopt share_history # Disable shared history between terminals
+
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 export EDITOR="code -w"
 export MAIL="pholster@student.codam.nl"
@@ -115,12 +118,11 @@ alias weather="curl wttr.in"
 alias norminette+="python ~/norminette+/run.py"
 alias valgring-mem="valgrind --tool=memcheck"
 
+alias myip="echo $(curl http://ipecho.net/plain)"
 alias gccw="gcc -Wall -Wextra -Werror"
 alias trash="rmtrash"
 alias del="rmtrash"
 alias cp="cp -iv"
-alias diff="diff --color=auto"
-alias grep="grep --color=auto"
 alias mv="mv -iv"
 alias make="make --no-print-directory"
 
