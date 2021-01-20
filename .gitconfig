@@ -1,0 +1,36 @@
+[user]
+	name = Eathox
+	email = pgaholster@gmail.com
+
+[core]
+	# A global ignore file
+	excludesfile = ~/.gitignore
+
+[commit]
+	template = ~/.git-commit-template.txt
+
+[credential]
+	# remember github passwords when cloning over https
+	helper = cache
+
+[branch]
+	# prefer rebase when pulling in changes
+	autosetuprebase = always
+
+[pull]
+	# preserve merge commits
+	rebase = preserve
+
+[push]
+	# push current branch to upstream branch, but refuse if remote name differs
+	default = simple
+
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+
+[alias]
+	root = rev-parse --show-toplevel
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)'

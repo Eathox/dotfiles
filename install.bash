@@ -27,6 +27,7 @@ backup_file () {
 
 	if [[ ! -f "$HOME/$FILE_LOC" ]]; then
 		echo "File '$HOME/$FILE_LOC' doesn't exist, skipping"
+		return 0
 	fi
 
 	echo "Backing up '$FILE' -> '$BACKUP_LOC'"
@@ -69,6 +70,8 @@ link_file () {
 
 install () {
 	declare -A ALL_FILE=(
+		[".gitconfig"]=""
+		[".git-commit-template.txt"]=""
 		[".zshrc"]=""
 		[".zshrc.functions"]=""
 		[".p10k.zsh"]=""
